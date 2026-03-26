@@ -2,17 +2,22 @@ import requests
 import time
 from datetime import datetime
 import schedule
+import os
+from dotenv import load_dotenv
+
+# Load environment variables from .env file
+load_dotenv()
 
 # ── CONFIG ──────────────────────────────────────────────────────────────
-TELEGRAM_TOKEN = "8769232578:AAHdsHVCiZ0vZbTKo538op54LhINd73YmZI"
-CHAT_ID        = "8303106105"
+TELEGRAM_TOKEN = os.getenv("TELEGRAM_TOKEN", "")
+CHAT_ID        = os.getenv("CHAT_ID", "")
 ATCO_CODE      = "3290YYA00174"          # Your bus stop ATCO code
 BUS_STOP_NAME  = "The Barbican S-bound"       # Bus stop name for notifications
 BUS_NUMBERS    = ["U2"]        # Only watch these services (or [] for all)
 CHECK_INTERVAL = 2                  # Check every 2 minutes
 
-TRANSPORT_APP_ID  = "a5856328"
-TRANSPORT_APP_KEY = "86b23613d64238bc895f4e0dba5e38b5"
+TRANSPORT_APP_ID  = os.getenv("TRANSPORT_APP_ID", "")
+TRANSPORT_APP_KEY = os.getenv("TRANSPORT_APP_KEY", "")
 
 # ── SCHOOL SCHEDULE ─────────────────────────────────────────────────────
 # Format: (day_of_week, class_time, "HH:MM")
