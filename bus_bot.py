@@ -73,30 +73,6 @@ def minutes_until(time_str: str) -> int | None:
 # Track which departures we've already alerted on (avoid duplicate messages)
 alerted = set()
 
-def get_next_class():
-    """Get the next upcoming class."""
-    now = datetime.now()
-    current_day = now.weekday()
-    current_time = now.strftime("%H:%M")
-    
-    # Check today's classes first
-    for day, class_time, class_name in SCHOOL_SCHEDULE:
-        if day == current_day and class_time > current_time:
-            class_dt = datetime.strptime(class_time, "%H:%M")
-            alert_time_str = f"{(class_dt.hour - 1):{:02d}:{(class_dt.minute - 45 if class_dt.minute >= 45 else class_dt.minute - 45 + 60):{:02d}}"
-            return (class_day, class_time, class_name)
-    
-    # Otherwise, find next class
-    days_ahead = 0
-    while days_ahead <= 7:
-        check_day = (current_day + days_ahead) % 7
-        for day, class_time, class_name in SCHOOL_SCHEDULE:
-            if day == check_day:
-                return (day, class_time, class_name)
-        days_ahead += 1
-    
-    return None
-
 def should_alert_for_class():
     """Check if we're in the alert window (1 hour before class)."""
     now = datetime.now()
